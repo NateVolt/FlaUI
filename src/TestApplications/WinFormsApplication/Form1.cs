@@ -24,10 +24,22 @@ namespace WinFormsApplication
 
         private void NonEditableCombo_SelectedIndexChanged(object sender, System.EventArgs e)
         {
-            var comboBox = (ComboBox)sender;
-            if (comboBox.SelectedItem.ToString() == "Item 4")
+            try
             {
-                MessageBox.Show("Do you really want to do it?");
+                var comboBox = (ComboBox)sender;
+                if (comboBox.SelectedItem.ToString() == "Item 4")
+                {
+                    MessageBox.Show("Do you really want to do it?");
+                }
+            }
+            catch (System.Exception ex)
+            {
+
+                MessageBox.Show(
+                    $"sender is {(sender != null ? "not" : "")} null\r\n" +
+                    $"SelectedItem is {(((ComboBox)sender)?.SelectedItem != null ? "not" : "")} null\r\n" +
+                    $"{ex.Message}\r\n" +
+                    $"{ex.StackTrace}");
             }
         }
     }

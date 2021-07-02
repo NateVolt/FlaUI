@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Drawing;
+using System.Linq;
 using FlaUI.Core.AutomationElements;
 using FlaUI.Core.Definitions;
+using FlaUI.Core.Input;
 using FlaUI.Core.Tools;
 using FlaUI.Core.UITests.TestFramework;
 using NUnit.Framework;
@@ -90,7 +93,11 @@ namespace FlaUI.Core.UITests.Elements
         {
             var combo = _mainWindow.FindFirstDescendant(cf => cf.ByAutomationId("NonEditableCombo")).AsComboBox();
             combo.Expand();
-            combo.Items[3].Click();
+            var itemToClick = combo.Items.Last();
+            //itemToClick.Click();
+            //Point pointToClick = itemToClick.GetClickablePoint();
+            //Mouse.MoveTo(pointToClick);
+            //Mouse.LeftClick();
             var retryResult = Retry.While(() => _mainWindow.FindFirstDescendant(cf => cf.ByClassName("#32770"))?.AsWindow(), w => w == null, TimeSpan.FromMilliseconds(1000));
             var window = retryResult.Result;
             Assert.That(window, Is.Not.Null, "Expected a window that was shown when combobox item was selected");
